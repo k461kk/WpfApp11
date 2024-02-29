@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="117ed5fbab484472a57d85e53c90afe6" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Login" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" FillColor="192, 0, 0" />
+        <EntityTypeShape EntityType="Model.Postavchiki" Width="1.5" PointX="4.875" PointY="0.875" IsExpanded="true" FillColor="Black" />
+        <EntityTypeShape EntityType="Model.Produkti" Width="1.5" PointX="1" PointY="3.125" IsExpanded="true" FillColor="Black" />
+        <EntityTypeShape EntityType="Model.Sklad" Width="1.5" PointX="3" PointY="4" IsExpanded="true" FillColor="Black" />
+        <EntityTypeShape EntityType="Model.Zakazy" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" FillColor="Black" />
+        <AssociationConnector Association="Model.FK_Zakazy_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Sklad_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Zakazy_ToTable_1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

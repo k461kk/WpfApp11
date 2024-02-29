@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="Id_Login" />
+          </Key>
+          <Property Name="Id_Login" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Roli" Type="int" />
+        </EntityType>
+        <EntityType Name="Postavchiki">
+          <Key>
+            <PropertyRef Name="Id_Postavchiki" />
+          </Key>
+          <Property Name="Id_Postavchiki" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naimenovanie" Type="nvarchar" MaxLength="50" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon" Type="int" />
+          <Property Name="E-mail" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Produkti">
+          <Key>
+            <PropertyRef Name="Id_Produkti" />
+          </Key>
+          <Property Name="Id_Produkti" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naimenovanie" Type="nvarchar" MaxLength="50" />
+          <Property Name="Kategoriya" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cena" Type="int" />
+          <Property Name="Srok godnosti" Type="date" />
+        </EntityType>
+        <EntityType Name="Sklad">
+          <Key>
+            <PropertyRef Name="Id_Sklad" />
+          </Key>
+          <Property Name="Id_Sklad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Produktii" Type="int" />
+          <Property Name="Kolichestvo" Type="int" />
+          <Property Name="Data postupleniya" Type="date" />
+        </EntityType>
+        <EntityType Name="Zakazy">
+          <Key>
+            <PropertyRef Name="Id_Zakazi" />
+          </Key>
+          <Property Name="Id_Zakazi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Data zakaza" Type="date" />
+          <Property Name="Id_Produkti" Type="int" />
+          <Property Name="Kolichestvo" Type="int" />
+          <Property Name="Stoimost" Type="int" />
+          <Property Name="Id_Postavshik" Type="int" />
+        </EntityType>
+        <Association Name="FK_Sklad_ToTable">
+          <End Role="Produkti" Type="Self.Produkti" Multiplicity="0..1" />
+          <End Role="Sklad" Type="Self.Sklad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produkti">
+              <PropertyRef Name="Id_Produkti" />
+            </Principal>
+            <Dependent Role="Sklad">
+              <PropertyRef Name="Id_Produktii" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakazy_ToTable">
+          <End Role="Postavchiki" Type="Self.Postavchiki" Multiplicity="0..1" />
+          <End Role="Zakazy" Type="Self.Zakazy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Postavchiki">
+              <PropertyRef Name="Id_Postavchiki" />
+            </Principal>
+            <Dependent Role="Zakazy">
+              <PropertyRef Name="Id_Postavshik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakazy_ToTable_1">
+          <End Role="Produkti" Type="Self.Produkti" Multiplicity="0..1" />
+          <End Role="Zakazy" Type="Self.Zakazy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produkti">
+              <PropertyRef Name="Id_Produkti" />
+            </Principal>
+            <Dependent Role="Zakazy">
+              <PropertyRef Name="Id_Produkti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Postavchiki" EntityType="Self.Postavchiki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produkti" EntityType="Self.Produkti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sklad" EntityType="Self.Sklad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zakazy" EntityType="Self.Zakazy" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Sklad_ToTable" Association="Self.FK_Sklad_ToTable">
+            <End Role="Produkti" EntitySet="Produkti" />
+            <End Role="Sklad" EntitySet="Sklad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakazy_ToTable" Association="Self.FK_Zakazy_ToTable">
+            <End Role="Postavchiki" EntitySet="Postavchiki" />
+            <End Role="Zakazy" EntitySet="Zakazy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakazy_ToTable_1" Association="Self.FK_Zakazy_ToTable_1">
+            <End Role="Produkti" EntitySet="Produkti" />
+            <End Role="Zakazy" EntitySet="Zakazy" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="Id_Login" />
+          </Key>
+          <Property Name="Id_Login" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Roli" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Postavchiki">
+          <Key>
+            <PropertyRef Name="Id_Postavchiki" />
+          </Key>
+          <Property Name="Id_Postavchiki" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naimenovanie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adres" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="Int32" />
+          <Property Name="E_mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zakazy" Relationship="Self.FK_Zakazy_ToTable" FromRole="Postavchiki" ToRole="Zakazy" />
+        </EntityType>
+        <EntityType Name="Produkti">
+          <Key>
+            <PropertyRef Name="Id_Produkti" />
+          </Key>
+          <Property Name="Id_Produkti" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naimenovanie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Kategoriya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cena" Type="Int32" />
+          <Property Name="Srok_godnosti" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Sklad" Relationship="Self.FK_Sklad_ToTable" FromRole="Produkti" ToRole="Sklad" />
+          <NavigationProperty Name="Zakazy" Relationship="Self.FK_Zakazy_ToTable_1" FromRole="Produkti" ToRole="Zakazy" />
+        </EntityType>
+        <EntityType Name="Sklad">
+          <Key>
+            <PropertyRef Name="Id_Sklad" />
+          </Key>
+          <Property Name="Id_Sklad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Produktii" Type="Int32" />
+          <Property Name="Kolichestvo" Type="Int32" />
+          <Property Name="Data_postupleniya" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Produkti" Relationship="Self.FK_Sklad_ToTable" FromRole="Sklad" ToRole="Produkti" />
+        </EntityType>
+        <EntityType Name="Zakazy">
+          <Key>
+            <PropertyRef Name="Id_Zakazi" />
+          </Key>
+          <Property Name="Id_Zakazi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data_zakaza" Type="DateTime" Precision="0" />
+          <Property Name="Id_Produkti" Type="Int32" />
+          <Property Name="Kolichestvo" Type="Int32" />
+          <Property Name="Stoimost" Type="Int32" />
+          <Property Name="Id_Postavshik" Type="Int32" />
+          <NavigationProperty Name="Postavchiki" Relationship="Self.FK_Zakazy_ToTable" FromRole="Zakazy" ToRole="Postavchiki" />
+          <NavigationProperty Name="Produkti" Relationship="Self.FK_Zakazy_ToTable_1" FromRole="Zakazy" ToRole="Produkti" />
+        </EntityType>
+        <Association Name="FK_Zakazy_ToTable">
+          <End Role="Postavchiki" Type="Self.Postavchiki" Multiplicity="0..1" />
+          <End Role="Zakazy" Type="Self.Zakazy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Postavchiki">
+              <PropertyRef Name="Id_Postavchiki" />
+            </Principal>
+            <Dependent Role="Zakazy">
+              <PropertyRef Name="Id_Postavshik" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sklad_ToTable">
+          <End Role="Produkti" Type="Self.Produkti" Multiplicity="0..1" />
+          <End Role="Sklad" Type="Self.Sklad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produkti">
+              <PropertyRef Name="Id_Produkti" />
+            </Principal>
+            <Dependent Role="Sklad">
+              <PropertyRef Name="Id_Produktii" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakazy_ToTable_1">
+          <End Role="Produkti" Type="Self.Produkti" Multiplicity="0..1" />
+          <End Role="Zakazy" Type="Self.Zakazy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produkti">
+              <PropertyRef Name="Id_Produkti" />
+            </Principal>
+            <Dependent Role="Zakazy">
+              <PropertyRef Name="Id_Produkti" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Login" EntityType="Self.Login" />
+          <EntitySet Name="Postavchiki" EntityType="Self.Postavchiki" />
+          <EntitySet Name="Produkti" EntityType="Self.Produkti" />
+          <EntitySet Name="Sklad" EntityType="Self.Sklad" />
+          <EntitySet Name="Zakazy" EntityType="Self.Zakazy" />
+          <AssociationSet Name="FK_Zakazy_ToTable" Association="Self.FK_Zakazy_ToTable">
+            <End Role="Postavchiki" EntitySet="Postavchiki" />
+            <End Role="Zakazy" EntitySet="Zakazy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sklad_ToTable" Association="Self.FK_Sklad_ToTable">
+            <End Role="Produkti" EntitySet="Produkti" />
+            <End Role="Sklad" EntitySet="Sklad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakazy_ToTable_1" Association="Self.FK_Zakazy_ToTable_1">
+            <End Role="Produkti" EntitySet="Produkti" />
+            <End Role="Zakazy" EntitySet="Zakazy" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Login">
+            <EntityTypeMapping TypeName="Model.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="Id_Login" ColumnName="Id_Login" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Roli" ColumnName="Roli" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Postavchiki">
+            <EntityTypeMapping TypeName="Model.Postavchiki">
+              <MappingFragment StoreEntitySet="Postavchiki">
+                <ScalarProperty Name="Id_Postavchiki" ColumnName="Id_Postavchiki" />
+                <ScalarProperty Name="Naimenovanie" ColumnName="Naimenovanie" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="E_mail" ColumnName="E-mail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produkti">
+            <EntityTypeMapping TypeName="Model.Produkti">
+              <MappingFragment StoreEntitySet="Produkti">
+                <ScalarProperty Name="Id_Produkti" ColumnName="Id_Produkti" />
+                <ScalarProperty Name="Naimenovanie" ColumnName="Naimenovanie" />
+                <ScalarProperty Name="Kategoriya" ColumnName="Kategoriya" />
+                <ScalarProperty Name="Cena" ColumnName="Cena" />
+                <ScalarProperty Name="Srok_godnosti" ColumnName="Srok godnosti" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sklad">
+            <EntityTypeMapping TypeName="Model.Sklad">
+              <MappingFragment StoreEntitySet="Sklad">
+                <ScalarProperty Name="Id_Sklad" ColumnName="Id_Sklad" />
+                <ScalarProperty Name="Id_Produktii" ColumnName="Id_Produktii" />
+                <ScalarProperty Name="Kolichestvo" ColumnName="Kolichestvo" />
+                <ScalarProperty Name="Data_postupleniya" ColumnName="Data postupleniya" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zakazy">
+            <EntityTypeMapping TypeName="Model.Zakazy">
+              <MappingFragment StoreEntitySet="Zakazy">
+                <ScalarProperty Name="Id_Zakazi" ColumnName="Id_Zakazi" />
+                <ScalarProperty Name="Data_zakaza" ColumnName="Data zakaza" />
+                <ScalarProperty Name="Id_Produkti" ColumnName="Id_Produkti" />
+                <ScalarProperty Name="Kolichestvo" ColumnName="Kolichestvo" />
+                <ScalarProperty Name="Stoimost" ColumnName="Stoimost" />
+                <ScalarProperty Name="Id_Postavshik" ColumnName="Id_Postavshik" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
